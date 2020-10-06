@@ -17,7 +17,7 @@ UF *UF_init(int N)
 
     for (int i = 0; i < N; i++)
     {
-        ids[i] = i;   // Cada objeto comeca na sua propria componente.
+        ids[i] = i;   // Cada objeto começa na sua própria componente
         sizes[i] = 1; // E com peso/tamanho 1.
     }
 
@@ -34,8 +34,8 @@ int UF_find(UF *graph, int node)
 
     while (findRoot != graph->ids[findRoot])
     {
-        graph->ids[findRoot] = graph->ids[graph->ids[findRoot]]; // Uma unica linha de codigo adicional.
-        findRoot = graph->ids[findRoot];                         // Cada passo agora requer 5 acessos.
+        graph->ids[findRoot] = graph->ids[graph->ids[findRoot]];
+        findRoot = graph->ids[findRoot];
     }
 
     return findRoot;
@@ -43,8 +43,8 @@ int UF_find(UF *graph, int node)
 
 void UF_union(UF *graph, int p, int q)
 {
-    int i = UF_find(graph, p); // Pendure a arvore menor sob a maior.
-    int j = UF_find(graph, q); // Profundidade de ? acessos.
+    int i = UF_find(graph, p);
+    int j = UF_find(graph, q);
 
     if (i != j)
     {
@@ -68,7 +68,6 @@ void UF_destroy(UF *graph)
         free(graph->ids);
     }
 
-    //Gerando 1 erro no valgrind com, mas nenhum leak sem
     if (graph->sizes != NULL)
     {
         free(graph->sizes);

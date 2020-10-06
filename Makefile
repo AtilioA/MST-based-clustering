@@ -6,11 +6,8 @@ EXE 	 := trab1
 PROJETO  := main
 
 # Cria objetos de todos os arquivos de código-fonte para então linká-los no programa final
-main: clean $(OBJ)/union_find.o $(OBJ)/linked_list.o $(OBJ)/utils.o  $(OBJ)/grafo.o $(OBJ)/$(PROJETO).o
+main: clean $(OBJ)/union_find.o $(OBJ)/linked_list.o $(OBJ)/utils.o $(OBJ)/$(PROJETO).o
 	gcc $(OBJ)/*.o -o $(EXE) $(CFLAGS)
-
-$(OBJ)/grafo.o: $(SRC)/grafo.c $(INC)/grafo.h
-	gcc -c $(CFLAGS) "$(SRC)/grafo.c" -o "$(OBJ)/grafo.o"
 
 $(OBJ)/utils.o: $(SRC)/utils.c $(INC)/utils.h
 	gcc -c $(CFLAGS) "$(SRC)/utils.c" -o "$(OBJ)/utils.o"

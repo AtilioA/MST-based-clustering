@@ -12,15 +12,16 @@ int main(int argc, char *argv[])
 
     printf("find 1: %i\n", UF_find(graph, 1));
     printf("find 2: %i\n", UF_find(graph, 2));
-    int i = UF_find(graph, 1); // Pendure a arvore menor sob a maior.
-    int j = UF_find(graph, 2); // Profundidade de ? acessos.
-    UF_union(graph, 1, 2);
+    int i = UF_find(graph, 1);
+    int j = UF_find(graph, 2);
+    UF_union(graph, 2, 1);
     UF_union(graph, 0, 2);
     UF_union(graph, 2, 3);
     UF_union(graph, 5, 8);
 
     printf("find 2: %i\n", UF_find(graph, 2));
     printf("find 1: %i\n", UF_find(graph, 1));
+    printf("find 0: %i\n", UF_find(graph, 0));
     printf("find 5: %i\n", UF_find(graph, 5));
     printf("find 8: %i\n", UF_find(graph, 8));
 
@@ -43,17 +44,17 @@ int main(int argc, char *argv[])
     //     return -1;
     // }
 
-    // int nLinhas = conta_linhas(fp);
+    // int nLinhas = count_lines(fp);
     // printf("\n'%s' possui %i linhas.", fileIn, nLinhas);
 
     // // Volta para o começo do arquivo
     // rewind(fp);
-    // nDimensoes = determina_dimensoes(fp);
+    // nDimensoes = determine_dimensions(fp);
     // printf("\nDimensões: %i\n", nDimensoes);
 
     // /*
     // rewind(fp);
-    // le_arquivo_entrada(fp);
+    // read_input_file(fp);
     // */
 
     // fclose(fp);

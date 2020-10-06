@@ -1,13 +1,14 @@
 // #include <stdlib.h>
 #include <stdio.h>
 
-int determina_dimensoes(FILE *fp)
+int determine_dimensions(FILE *fp)
 {
     char *lineBuffer = NULL;
     int lineBufferSize = 0;
 
     getline(&lineBuffer, &lineBufferSize, fp);
 
+    // Percorre a string da linha contando a ocorrência de vírgulas (neste caso indicam número de dimensões)
     int i, nDimensoes;
     for (i = 0, nDimensoes = 0; lineBuffer[i]; i++)
     {
@@ -20,7 +21,7 @@ int determina_dimensoes(FILE *fp)
 }
 
 //STUB: Incompleta, apenas printa todas as linhas
-int le_arquivo_entrada(FILE *fp)
+int read_input_file(FILE *fp)
 {
     // Inicializa variáveis para leitura de linhas
     char *lineBuffer = NULL;
@@ -46,7 +47,7 @@ int le_arquivo_entrada(FILE *fp)
     return 0;
 }
 
-int conta_linhas(FILE *fp)
+int count_lines(FILE *fp)
 {
     char c;
     int linhas = 0;
