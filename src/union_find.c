@@ -22,6 +22,7 @@ UF *UF_init(int N)
     }
 
     graph->ids = ids;
+    graph->sizes = sizes;
     graph->N = N;
 
     return graph;
@@ -67,11 +68,11 @@ void UF_destroy(UF *graph)
         free(graph->ids);
     }
 
-    // Gerando 1 erro no valgrind com, mas nenhum leak sem
-    // if (graph->sizes != NULL)
-    // {
-    // free(graph->sizes);
-    // }
+    //Gerando 1 erro no valgrind com, mas nenhum leak sem
+    if (graph->sizes != NULL)
+    {
+        free(graph->sizes);
+    }
 
     if (graph != NULL)
     {
