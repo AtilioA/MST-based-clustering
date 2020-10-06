@@ -3,22 +3,25 @@
 
 struct union_find
 {
-    int *id;
     int N;
+    int *ids;
+    int *sizes;
 };
 
-UF *UF_init(int N, int idSize)
+UF *UF_init(int N)
 {
     UF *graph = (UF *)malloc(sizeof(UF));
 
-    int *id = (int *)malloc(idSize * sizeof(int));
+    int *ids = (int *)malloc(N * sizeof(int));
+    int *sizes = (int *)malloc(N * sizeof(int));
 
     for (int i = 0; i < N; i++)
     {
-        id[i] = i; // Cada objeto comeca na sua propria componente.
-    }              // N acessos ao array.
+        ids[i] = i;   // Cada objeto comeca na sua propria componente.
+        sizes[i] = 1; // E com peso/tamanho 1.
+    }
 
-    graph->id = id;
+    graph->ids = ids;
     graph->N = N;
 
     return graph;
@@ -27,33 +30,66 @@ UF *UF_init(int N, int idSize)
 int UF_find(UF *graph, int node)
 {
     int findRoot = node;
-    while (findRoot != graph->id[findRoot])
+
+    while (findRoot != graph->ids[findRoot])
     {
-        findRoot = graph->id[findRoot]; // Buscar o pai ate a raiz.
+        graph->ids[findRoot] = graph->ids[graph->ids[findRoot]]; // Uma unica linha de codigo adicional.
+        findRoot = graph->ids[findRoot];                         // Cada passo agora requer 5 acessos.
     }
 
-    return findRoot; // Profundidade de i acessos.
+    return findRoot;
 }
 
 void UF_union(UF *graph, int p, int q)
 {
-    int i = UF_find(graph, p); // Modifique raiz de p para a raiz de q.
-    int j = UF_find(graph, q); // Profundidade de p+q acessos.
-    graph->id[i] = j;
+    int i = UF_find(graph, p); // Pendure a arvore menor sob a maior.
+    int j = UF_find(graph, q); // Profundidade de ? acessos.
+
+    if (i != j)
+    {
+        if (graph->sizes[i] < graph->sizes[j])
+        {
+            graph->ids[i] = j;
+            graph->sizes[j] += graph->sizes[i];
+        }
+        else
+        {
+            graph->ids[j] = i;
+            graph->sizes[i] += graph->sizes[j];
+        }
+    }
 }
 
 void UF_destroy(UF *graph)
 {
-    free(graph->id);
-    free(graph);
-}
+    if (graph->ids != NULL)
+    {
+        free(graph->ids);
+    }
 
-int *UF_get_ids(UF *graph)
-{
-    return graph->id;
+    // Gerando 1 erro no valgrind com, mas nenhum leak sem
+    // if (graph->sizes != NULL)
+    // {
+    // free(graph->sizes);
+    // }
+
+    if (graph != NULL)
+    {
+        free(graph);
+    }
 }
 
 int UF_get_N(UF *graph)
 {
     return graph->N;
+}
+
+int *UF_get_ids(UF *graph)
+{
+    return graph->ids;
+}
+
+int *UF_get_sizes(UF *graph)
+{
+    return graph->sizes;
 }

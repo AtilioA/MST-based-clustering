@@ -7,8 +7,23 @@
 int main(int argc, char *argv[])
 {
     // Teste de struct Union-Find
-    UF *graph = UF_init(10, 10);
-    printf("%i %i %i", UF_get_ids(graph)[0], UF_get_ids(graph)[1], UF_get_ids(graph)[2]);
+    UF *graph = UF_init(10);
+    printf("%i %i %i\n", UF_get_ids(graph)[0], UF_get_ids(graph)[1], UF_get_ids(graph)[2]);
+
+    printf("find 1: %i\n", UF_find(graph, 1));
+    printf("find 2: %i\n", UF_find(graph, 2));
+    int i = UF_find(graph, 1); // Pendure a arvore menor sob a maior.
+    int j = UF_find(graph, 2); // Profundidade de ? acessos.
+    UF_union(graph, 1, 2);
+    UF_union(graph, 0, 2);
+    UF_union(graph, 2, 3);
+    UF_union(graph, 5, 8);
+
+    printf("find 2: %i\n", UF_find(graph, 2));
+    printf("find 1: %i\n", UF_find(graph, 1));
+    printf("find 5: %i\n", UF_find(graph, 5));
+    printf("find 8: %i\n", UF_find(graph, 8));
+
     UF_destroy(graph);
 
     // Salva nome do arquivo de entrada dos argumentos

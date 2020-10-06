@@ -3,11 +3,15 @@
 
 typedef struct union_find UF;
 
-UF *UF_init(int N, int idSize);
+UF *UF_init(int N);
+
 int UF_find(UF *graph, int node);
 void UF_union(UF *graph, int p, int q);
+
 void UF_destroy(UF *graph);
-int *UF_get_ids(UF *graph);
+
 int UF_get_N(UF *graph);
+int *UF_get_ids(UF *graph);
+int *UF_get_sizes(UF *graph);
 
 #endif
