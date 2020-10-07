@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[])
 {
-    // Teste de struct Point
+    /* Teste de struct Point
     static int M = 5;
     double ponto[M];
     for (int i = 0; i < M; i++)
@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
     {
         printf("\n%i ", Point_get_coordinates(teste)[i]);
     }
+    */
+
     // Salva nome do arquivo de entrada dos argumentos
     char *fileIn = argv[1];
     // // Salva quantidade de grupos
@@ -40,20 +42,21 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    int nLinhas = count_lines(fp);
-    printf("\n'%s' possui %i linhas.", fileIn, nLinhas);
+    int nLines = count_lines(fp);
+    printf("\n'%s' possui %i linhas.", fileIn, nLines);
 
     // Volta para o começo do arquivo
     rewind(fp);
-    int ndimensions = determine_dimensions(fp);
-    char *elements[nLinhas];
-    double coordenates[M];
-    printf("\nDimensões: %i\n", ndimensions);
+    int nDimensions = determine_dimensions(fp);
+    printf("\nDimensões: %i\n", nDimensions);
+
+    char *linesIDs[nLines];
+    double pointsVectorizedMatrix[nDimensions * nLines];
 
     rewind(fp);
-    read_input_file(fp, elements, coordenates);
+    read_input_file(fp, linesIDs, pointsVectorizedMatrix);
 
-    // fclose(fp);
+    fclose(fp);
 
     return 0;
 }
