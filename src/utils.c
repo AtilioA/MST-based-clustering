@@ -45,7 +45,7 @@ int read_input_file(FILE *fp, char **names, double *coordenates)
     {
         // Printa linha atual
         const char s[2] = ",";
-        
+
         // A primeira entrada é uma cadeira de caracteres
         isName = 1;
 

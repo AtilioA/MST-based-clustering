@@ -4,6 +4,7 @@
 #include "include/utils.h"
 #include "include/union_find.h"
 #include "include/point.h"
+#include "include/dists.h"
 
 int main(int argc, char *argv[])
 {
@@ -55,6 +56,8 @@ int main(int argc, char *argv[])
 
     rewind(fp);
     read_input_file(fp, linesIDs, pointsVectorizedMatrix);
+
+    create_distance_array(linesIDs, pointsVectorizedMatrix, nLines, nDimensions);
 
     fclose(fp);
 
