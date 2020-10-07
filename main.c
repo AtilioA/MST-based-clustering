@@ -5,7 +5,7 @@
 #include "include/union_find.h"
 #include "include/point.h"
 
-int main(/*int argc, char *argv[]*/)
+int main(int argc, char *argv[])
 {
     // Teste de struct Point
     static int M = 5;
@@ -13,13 +13,16 @@ int main(/*int argc, char *argv[]*/)
     for (int i = 0; i < M; i++)
     {
         ponto[i] = i + 1;
-        printf("%i ", ponto[i]);
+        // printf("%i ", ponto[i]);
     }
 
     char *testeNome = "Hello, World";
-    // Segfault no init
     Point *teste = Point_init(testeNome, ponto, 5);
-    printf("%s", Point_get_name(teste));
+    printf("meu nome: %s", Point_get_name(teste));
+    for (int i = 0; i < M; i++)
+    {
+        printf("%i ", Point_get_coordinates(teste)[i]);
+    }
     // Salva nome do arquivo de entrada dos argumentos
     // char *fileIn = argv[1];
     // // Salva quantidade de grupos

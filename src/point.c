@@ -22,7 +22,7 @@ int *Point_get_coordinates(Point *point)
 
 Point *Point_init(char *name, int *coordinates, int nDimensions)
 {
-    Point *point = NULL;
+    Point *point = malloc(sizeof(Point));
 
     point->name = malloc((strlen(name) + 1) * sizeof(char));
     strcpy(point->name, name);
