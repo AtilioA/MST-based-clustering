@@ -20,13 +20,13 @@ int *Point_get_coordinates(Point *point)
     return point->coordinates;
 }
 
-Point *Point_init(char *name, int *coordinates, int nDimensions)
+Point *Point_init(char *name, double *coordinates, int nDimensions)
 {
     Point *point = malloc(sizeof(Point));
 
     point->name = malloc((strlen(name) + 1) * sizeof(char));
     strcpy(point->name, name);
-    point->coordinates = malloc(nDimensions * sizeof(int));
+    point->coordinates = malloc(nDimensions * sizeof(double));
 
     for (int i = 0; i < nDimensions; i++)
     {

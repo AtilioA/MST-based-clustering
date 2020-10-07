@@ -10,6 +10,6 @@ int count_lines(FILE *fp);
 // Lê e retorna quantas dimensões um ponto de um arquivo de entrada possui
 int determine_dimensions(FILE *fp);
 // Lê um arquivo de entrada (incompleto)
-int read_input_file(FILE *fp);
+int read_input_file(FILE *fp, char **names, double *coordenates);
 
 #endif

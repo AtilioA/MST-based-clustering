@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
     // Teste de struct Point
     static int M = 5;
-    int ponto[M];
+    double ponto[M];
     for (int i = 0; i < M; i++)
     {
         ponto[i] = i + 1;
@@ -21,10 +21,10 @@ int main(int argc, char *argv[])
     printf("meu nome: %s", Point_get_name(teste));
     for (int i = 0; i < M; i++)
     {
-        printf("%i ", Point_get_coordinates(teste)[i]);
+        printf("\n%i ", Point_get_coordinates(teste)[i]);
     }
     // Salva nome do arquivo de entrada dos argumentos
-    // char *fileIn = argv[1];
+    char *fileIn = argv[1];
     // // Salva quantidade de grupos
     // int k = atoi(argv[2]);
     // // Salva nome do arquivo de saída
@@ -32,28 +32,28 @@ int main(int argc, char *argv[])
     // int nDimensions;
 
     // // Abre arquivo de entrada
-    // FILE *fp = fopen(fileIn, "r");
+    FILE *fp = fopen(fileIn, "r");
 
-    // if (!fp)
-    // {
-    //     fprintf(stderr, "Falha ao abrir o arquivo '%s'.\n", fileIn);
-    //     return -1;
-    // }
+    if (!fp)
+    {
+        fprintf(stderr, "Falha ao abrir o arquivo '%s'.\n", fileIn);
+        return -1;
+    }
 
-    // int nLinhas = count_lines(fp);
-    // printf("\n'%s' possui %i linhas.", fileIn, nLinhas);
+    int nLinhas = count_lines(fp);
+    printf("\n'%s' possui %i linhas.", fileIn, nLinhas);
 
-    // // Volta para o começo do arquivo
-    // rewind(fp);
-    // nDimensions = determine_dimensions(fp);
-    // printf("\nDimensões: %i\n", nDimensions);
+    // Volta para o começo do arquivo
+    rewind(fp);
+    int ndimensions = determine_dimensions(fp);
+    char *elements[nLinhas * M];
+    // double coordenates[M];
+    printf("\nDimensões: %i\n", ndimensions);
 
-    // /*
-    // rewind(fp);
-    // read_input_file(fp);
-    // */
+    rewind(fp);
+    read_input_file(fp, elements);
 
-    // fclose(fp);
+    fclose(fp);
 
     return 0;
 }

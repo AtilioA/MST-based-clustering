@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 int determine_dimensions(FILE *fp)
 {
@@ -27,7 +28,7 @@ int determine_dimensions(FILE *fp)
 }
 
 //STUB: Incompleta, apenas printa todas as linhas
-int read_input_file(FILE *fp)
+int read_input_file(FILE *fp, char **names, double *coordenates)
 {
     // Inicializa variáveis para leitura de linhas
     char *lineBuffer = NULL;
@@ -36,15 +37,45 @@ int read_input_file(FILE *fp)
 
     // Lê primeira linha do arquivo
     currentLine = getline(&lineBuffer, &lineBufferSize, fp);
-
     // Lê enquanto getline não retornar -1 para currentLine
+    int n_names = 0;
+    int n_coordenates = 0;
+    int is_name = 1;
     while (currentLine >= 0)
     {
         // Printa linha atual
-        printf("chars=%06zd, buf size=%06zu, contents: %s", currentLine, lineBufferSize, lineBuffer);
-
+        const char s[2] = ",";
+        char *token;
+        is_name = 1;
+        token = strtok(lineBuffer, s);
+        while (token != NULL)
+        {
+            if (is_name)
+            {
+                names[n_names] = malloc((strlen(token) + 1) * sizeof(char));
+                strcpy(names[n_names], token);
+                n_names++;
+                is_name = 0;
+            }
+            else
+            {
+                //strtod
+                coordenates[n_coordenates] = malloc(sizeof(double));
+                n_coordenates++;
+            }
+            token = strtok(NULL, s);
+        }
+        // printf("chars=%06zd, buf size=%06zu, contents: %s", currentLine, lineBufferSize, lineBuffer);
         // Lê a próxima linha
         currentLine = getline(&lineBuffer, &lineBufferSize, fp);
+    }
+    for (int i = 0; i < n_names; i++)
+    {
+        printf("%s\n", names[i]);
+    }
+    for (int i = 0; i < n_coordenates; i++)
+    {
+        printf("%f\n", coordenates[i]);
     }
 
     free(lineBuffer);

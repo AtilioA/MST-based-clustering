@@ -6,7 +6,7 @@
 typedef struct point Point;
 
 // Inicializa um ponto m-dimensional
-Point *Point_init(char *name, int *dimensions, int nDimensions);
+Point *Point_init(char *name, double *dimensions, int nDimensions);
 // Calcula distância entre dois pontos de mesma dimensão
 double calc_dist_points(Point *p1, Point *p2, int nDimensions);
 
