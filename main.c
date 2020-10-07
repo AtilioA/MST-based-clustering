@@ -57,9 +57,15 @@ int main(int argc, char *argv[])
     rewind(fp);
     read_input_file(fp, linesIDs, pointsVectorizedMatrix);
 
-    create_distance_array(linesIDs, pointsVectorizedMatrix, nLines, nDimensions);
+    Dist *distArray = create_distance_array(linesIDs, pointsVectorizedMatrix, nLines, nDimensions);
 
     fclose(fp);
+
+    for (int i = 0; i < nLines; i++)
+    {
+        free(linesIDs[i]);
+    }
+    free(distArray);
 
     return 0;
 }

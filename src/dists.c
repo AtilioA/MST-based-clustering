@@ -38,4 +38,6 @@ Dist *create_distance_array(char **names, double *pointsVectorizedMatrix, int nP
             // calc_dist_points(pointsArray[i], pointsArray[j]);
         }
     }
+
+    return distances;
 }
