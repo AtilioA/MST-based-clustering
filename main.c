@@ -46,14 +46,14 @@ int main(int argc, char *argv[])
     // Volta para o começo do arquivo
     rewind(fp);
     int ndimensions = determine_dimensions(fp);
-    char *elements[nLinhas * M];
-    // double coordenates[M];
+    char *elements[nLinhas];
+    double coordenates[M];
     printf("\nDimensões: %i\n", ndimensions);
 
     rewind(fp);
-    read_input_file(fp, elements);
+    read_input_file(fp, elements, coordenates);
 
-    fclose(fp);
+    // fclose(fp);
 
     return 0;
 }

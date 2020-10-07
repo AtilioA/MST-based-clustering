@@ -7,7 +7,7 @@ int determine_dimensions(FILE *fp)
     char *lineBuffer = NULL;
     size_t lineBufferSize = 0;
 
-    if (getline(&lineBuffer, &lineBufferSize, fp) == 1)
+    if (getline(&lineBuffer, &lineBufferSize, fp) >= 0)
     {
 
         // Percorre a string da linha contando a ocorrência de vírgulas (neste caso indicam número de dimensões)
@@ -40,7 +40,7 @@ int read_input_file(FILE *fp, char **names, double *coordenates)
     // Lê enquanto getline não retornar -1 para currentLine
     int n_names = 0;
     int n_coordenates = 0;
-    int is_name = 1;
+    int is_name;
     while (currentLine >= 0)
     {
         // Printa linha atual
@@ -50,17 +50,19 @@ int read_input_file(FILE *fp, char **names, double *coordenates)
         token = strtok(lineBuffer, s);
         while (token != NULL)
         {
-            if (is_name)
+            if (is_name == 1)
             {
                 names[n_names] = malloc((strlen(token) + 1) * sizeof(char));
                 strcpy(names[n_names], token);
-                n_names++;
+                printf("%s\n", token);
                 is_name = 0;
+                n_names++;
             }
             else
             {
                 //strtod
-                coordenates[n_coordenates] = malloc(sizeof(double));
+                char *ptr;
+                coordenates[n_coordenates] = strtod(token, &ptr);
                 n_coordenates++;
             }
             token = strtok(NULL, s);
@@ -71,14 +73,14 @@ int read_input_file(FILE *fp, char **names, double *coordenates)
     }
     for (int i = 0; i < n_names; i++)
     {
-        printf("%s\n", names[i]);
+        // printf("%s\n", names[i]);
     }
     for (int i = 0; i < n_coordenates; i++)
     {
-        printf("%f\n", coordenates[i]);
+        // printf("%f\n", coordenates[i]);
     }
 
-    free(lineBuffer);
+    // free(lineBuffer);
     lineBuffer = NULL;
 
     return 0;
