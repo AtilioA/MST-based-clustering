@@ -1,13 +1,16 @@
 OBJ      := obj
 SRC      := src
 INC      := include
-CFLAGS   := -g -w -O3
+CFLAGS   := -lm -g -O0 -Wall -pedantic -Wextra -Wwrite-strings -Wno-format  -Wno-discarded-qualifiers -Wno-unused-variable  # -Werror
 EXE 	 := trab1
 PROJETO  := main
 
 # Cria objetos de todos os arquivos de código-fonte para então linká-los no programa final
-main: clean $(OBJ)/union_find.o $(OBJ)/linked_list.o $(OBJ)/utils.o $(OBJ)/$(PROJETO).o
+main: clean $(OBJ)/point.o $(OBJ)/union_find.o $(OBJ)/linked_list.o $(OBJ)/utils.o $(OBJ)/$(PROJETO).o
 	gcc $(OBJ)/*.o -o $(EXE) $(CFLAGS)
+
+$(OBJ)/point.o: $(SRC)/point.c $(INC)/point.h
+	gcc -c $(CFLAGS) "$(SRC)/point.c" -o "$(OBJ)/point.o"
 
 $(OBJ)/utils.o: $(SRC)/utils.c $(INC)/utils.h
 	gcc -c $(CFLAGS) "$(SRC)/utils.c" -o "$(OBJ)/utils.o"

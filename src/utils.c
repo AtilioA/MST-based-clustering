@@ -1,23 +1,29 @@
-// #include <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 int determine_dimensions(FILE *fp)
 {
     char *lineBuffer = NULL;
-    int lineBufferSize = 0;
+    size_t lineBufferSize = 0;
 
-    getline(&lineBuffer, &lineBufferSize, fp);
-
-    // Percorre a string da linha contando a ocorrência de vírgulas (neste caso indicam número de dimensões)
-    int i, nDimensoes;
-    for (i = 0, nDimensoes = 0; lineBuffer[i]; i++)
+    if (getline(&lineBuffer, &lineBufferSize, fp) == 1)
     {
-        nDimensoes += (lineBuffer[i] == ',');
+
+        // Percorre a string da linha contando a ocorrência de vírgulas (neste caso indicam número de dimensões)
+        int i, nDimensions;
+        for (i = 0, nDimensions = 0; lineBuffer[i]; i++)
+        {
+            nDimensions += (lineBuffer[i] == ',');
+        }
+
+        free(lineBuffer);
+
+        return nDimensions;
     }
-
-    free(lineBuffer);
-
-    return nDimensoes;
+    else
+    {
+        return -1;
+    }
 }
 
 //STUB: Incompleta, apenas printa todas as linhas
@@ -50,7 +56,7 @@ int read_input_file(FILE *fp)
 int count_lines(FILE *fp)
 {
     char c;
-    int linhas = 0;
+    int lines = 0;
 
     if (fp == NULL)
     {
@@ -63,9 +69,9 @@ int count_lines(FILE *fp)
     {
         if (c == '\n')
         {
-            linhas++;
+            lines++;
         }
     }
 
-    return linhas;
+    return lines;
 }
