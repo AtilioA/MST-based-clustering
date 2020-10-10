@@ -40,3 +40,26 @@ void print_distances(Dist *distances, int nPoints)
         printf("Distância entre %i e %i: %f\n", distances[i].pIndex, distances[i].qIndex, distances[i].value);
     }
 }
+
+int comparator(const void *a, const void *b)
+{
+    if (((Dist *)a)->value > ((Dist *)b)->value)
+    {
+        return 1;
+    }
+    else if (((Dist *)a)->value < ((Dist *)b)->value)
+    {
+        return -1;
+    }
+    else
+    {
+        return ((Dist *)a)->pIndex - ((Dist *)b)->pIndex;
+    }
+}
+
+Dist *dist_sort(Dist *distances, int nPoints)
+{
+    int nDistances = (nPoints * (nPoints - 1)) / 2;
+    qsort(distances, nDistances, sizeof(Dist), comparator);
+    return distances;
+}

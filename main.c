@@ -65,6 +65,8 @@ int main(int argc, char *argv[])
 
     Dist *distArray = create_distance_array(points_vector, nLines, nDimensions);
 
+    distArray = dist_sort(distArray, nLines);
+
     print_distances(distArray, nLines);
 
     fclose(fp);

@@ -11,4 +11,6 @@ Dist *create_distance_array(Point **points, int nPoints, int nDimensions);
 
 void print_distances(Dist *distances, int nPoints);
 
+Dist *dist_sort(Dist *distances, int nPoints);
+
 #endif
