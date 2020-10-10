@@ -3,7 +3,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include "../include/dists.h"
-#include "../include/point.h"
 
 struct dist
 {
@@ -12,32 +11,32 @@ struct dist
     double value;
 };
 
-Dist *create_distance_array(char **names, double *pointsVectorizedMatrix, int nPoints, int nDimensions)
+Dist *create_distance_array(Point **points_vector, int nPoints, int nDimensions)
 {
-    int nDistances = nPoints * (nPoints - 1) / 2;
+    int nDistances = (nPoints * (nPoints - 1)) / 2;
     Dist *distances = (Dist *)malloc(nDistances * sizeof(Dist));
-
-    /* Inicializa pontos
-    (nao sei o que fiz aqui)
-    Point *pointsArray = (Point *)malloc(nPoints * sizeof(Point));
-    for (int i = 0; i < nPoints; i + nDimensions)
-    {
-        for (int j = 0; j < nDimensions; j++)
-        {
-            pointsArray[i] = Point_init(names[i + j], pointsVectorizedMatrix[i + j], nDimensions)
-        }
-    }
-    */
+    int count = 0;
 
     // Calcula distância entre pontos
     for (int i = 0; i < nPoints; i++)
     {
         for (int j = i + 1; j < nPoints; j++)
         {
-            printf("Distância entre %i e %i\n", i, j);
-            // calc_dist_points(pointsArray[i], pointsArray[j]);
+
+            distances[count].value = calc_dist_points(points_vector[i], points_vector[j], nDimensions);
+            distances[count].pIndex = i;
+            distances[count].qIndex = j;
+            count++;
         }
     }
-
     return distances;
+}
+
+void print_distances(Dist *distances, int nPoints)
+{
+    int nDistances = (nPoints * (nPoints - 1)) / 2;
+    for (int i = 0; i < nDistances; i++)
+    {
+        printf("Distância entre %i e %i: %f\n", distances[i].pIndex, distances[i].qIndex, distances[i].value);
+    }
 }

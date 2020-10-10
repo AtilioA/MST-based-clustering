@@ -63,7 +63,9 @@ int main(int argc, char *argv[])
 
     print_points(points_vector, nLines, nDimensions);
 
-    // Dist *distArray = create_distance_array(linesIDs, pointsVectorizedMatrix, nLines, nDimensions);
+    Dist *distArray = create_distance_array(points_vector, nLines, nDimensions);
+
+    print_distances(distArray, nLines);
 
     fclose(fp);
 
@@ -72,7 +74,7 @@ int main(int argc, char *argv[])
         free(linesIDs[i]);
     }
     Point_vector_free(points_vector, nLines);
-    // free(distArray);
+    free(distArray);
 
     return 0;
 }
