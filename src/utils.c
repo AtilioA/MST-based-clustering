@@ -59,7 +59,6 @@ int read_input_file(FILE *fp, char **names, double *coordenates)
             {
                 names[nNames] = malloc((strlen(token) + 1) * sizeof(char));
                 strcpy(names[nNames], token);
-                printf("%s\n", token);
                 isName = 0;
                 nNames++;
             }
@@ -78,16 +77,6 @@ int read_input_file(FILE *fp, char **names, double *coordenates)
         // Lê a próxima linha
         currentLine = getline(&lineBuffer, &lineBufferSize, fp);
     }
-
-    for (int i = 0; i < nNames; i++)
-    {
-        // printf("%s\n", names[i]);
-    }
-    for (int i = 0; i < nCoordenates; i++)
-    {
-        // printf("%f\n", coordenates[i]);
-    }
-
     free(lineBuffer);
     lineBuffer = NULL;
 
