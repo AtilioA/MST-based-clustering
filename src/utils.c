@@ -27,7 +27,6 @@ int determine_dimensions(FILE *fp)
     }
 }
 
-//STUB: Incompleta, apenas printa todas as linhas
 int read_input_file(FILE *fp, char **names, double *coordenates)
 {
     // Inicializa variáveis para leitura de linhas

@@ -11,7 +11,7 @@ struct dist
     double value;
 };
 
-Dist *create_distance_array(Point **points_vector, int nPoints, int nDimensions)
+Dist *create_distance_array(Point **points_array, int nPoints, int nDimensions)
 {
     int nDistances = (nPoints * (nPoints - 1)) / 2;
     Dist *distances = (Dist *)malloc(nDistances * sizeof(Dist));
@@ -23,7 +23,7 @@ Dist *create_distance_array(Point **points_vector, int nPoints, int nDimensions)
         for (int j = i + 1; j < nPoints; j++)
         {
 
-            distances[count].value = calc_dist_points(points_vector[i], points_vector[j], nDimensions);
+            distances[count].value = calc_dist_points(points_array[i], points_array[j], nDimensions);
             distances[count].pIndex = i;
             distances[count].qIndex = j;
             count++;
@@ -32,7 +32,7 @@ Dist *create_distance_array(Point **points_vector, int nPoints, int nDimensions)
     return distances;
 }
 
-void print_distances(Dist *distances, int nPoints)
+void print_dists(Dist *distances, int nPoints)
 {
     int nDistances = (nPoints * (nPoints - 1)) / 2;
     for (int i = 0; i < nDistances; i++)
@@ -41,25 +41,28 @@ void print_distances(Dist *distances, int nPoints)
     }
 }
 
-int comparator(const void *a, const void *b)
+// Comparador entre duas distâncias
+int comparator(const void *d1, const void *d2)
 {
-    if (((Dist *)a)->value > ((Dist *)b)->value)
+    if (((Dist *)d1)->value > ((Dist *)d2)->value)
     {
         return 1;
     }
-    else if (((Dist *)a)->value < ((Dist *)b)->value)
+    else if (((Dist *)d1)->value < ((Dist *)d2)->value)
     {
         return -1;
     }
     else
     {
-        return ((Dist *)a)->pIndex - ((Dist *)b)->pIndex;
+        return ((Dist *)d1)->pIndex - ((Dist *)d2)->pIndex;
     }
 }
 
 Dist *dist_sort(Dist *distances, int nPoints)
 {
     int nDistances = (nPoints * (nPoints - 1)) / 2;
+
     qsort(distances, nDistances, sizeof(Dist), comparator);
+
     return distances;
 }

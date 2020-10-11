@@ -8,33 +8,15 @@
 
 int main(int argc, char *argv[])
 {
-    /* Teste de struct Point
-    static int M = 5;
-    double ponto[M];
-    for (int i = 0; i < M; i++)
-    {
-        ponto[i] = i + 1;
-        // printf("%i ", ponto[i]);
-    }
-
-    char *testeNome = "Hello, World";
-    Point *teste = Point_init(testeNome, ponto, 5);
-    printf("meu nome: %s", Point_get_name(teste));
-    for (int i = 0; i < M; i++)
-    {
-        printf("\n%i ", Point_get_coordinates(teste)[i]);
-    }
-    */
-
     // Salva nome do arquivo de entrada dos argumentos
     char *fileIn = argv[1];
-    // // Salva quantidade de grupos
+    // Salva quantidade de grupos
     // int k = atoi(argv[2]);
-    // // Salva nome do arquivo de saída
+    // Salva nome do arquivo de saída
     // char *fileOut = argv[3];
     // int nDimensions;
 
-    // // Abre arquivo de entrada
+    // Abre arquivo de entrada
     FILE *fp = fopen(fileIn, "r");
 
     if (!fp)
@@ -57,25 +39,38 @@ int main(int argc, char *argv[])
     rewind(fp);
     read_input_file(fp, linesIDs, pointsVectorizedMatrix);
 
-    Point **points_vector;
+    Point **points_array;
 
-    points_vector = Point_vector_init(linesIDs, pointsVectorizedMatrix, nLines, nDimensions);
+    points_array = Point_array_init(linesIDs, pointsVectorizedMatrix, nLines, nDimensions);
 
-    print_points(points_vector, nLines, nDimensions);
+    print_points(points_array, nLines, nDimensions);
 
-    Dist *distArray = create_distance_array(points_vector, nLines, nDimensions);
+    Dist *distArray = create_distance_array(points_array, nLines, nDimensions);
 
     distArray = dist_sort(distArray, nLines);
 
-    print_distances(distArray, nLines);
+    // Rodar algoritmo de Kruskal com distArray
+
+    // Remover k - 1 arestas restantes
+
+    // Criar lista de grupos e/ou grupos que serão listas contendo nós do UF
+
+    // Ordenar grupo internamente em ordem alfabética com strcmp
+
+    // Ordenar grupos por ordem alfabética com strcmp
+
+    // Escrever grupos em ordem alfabética num arquivo de saída obtido no argv
+
+    print_dists(distArray, nLines);
 
     fclose(fp);
 
+    // Libera estruturas da memória
     for (int i = 0; i < nLines; i++)
     {
         free(linesIDs[i]);
     }
-    Point_vector_free(points_vector, nLines);
+    destroy_point_array(points_array, nLines);
     free(distArray);
 
     return 0;

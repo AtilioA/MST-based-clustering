@@ -37,7 +37,7 @@ Node *create_node(void *item)
 
 void insert_list(LinkedList *list, void *item)
 {
-    // Inserting first element
+    // Inserindo primeiro elemento
     if (list->first == NULL)
     {
         Node *node = create_node(item);
@@ -57,6 +57,7 @@ void insert_list(LinkedList *list, void *item)
 
 void delete_from_list(LinkedList *list, Node *removedNode)
 {
+    // Removendo único elemento
     if (list->first == list->last)
     {
         free(list->first);
