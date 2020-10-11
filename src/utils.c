@@ -79,8 +79,6 @@ int read_input_file(FILE *fp, char **names, double *coordenates)
     free(lineBuffer);
     lineBuffer = NULL;
 
-    printf("\nFim da leitura.\n");
-
     return 0;
 }
 

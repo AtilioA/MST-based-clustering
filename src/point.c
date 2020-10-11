@@ -15,7 +15,7 @@ char *Point_get_name(Point *point)
     return point->name;
 }
 
-int *Point_get_coordinates(Point *point)
+double *Point_get_coordinates(Point *point)
 {
     return point->coordinates;
 }

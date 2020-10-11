@@ -14,6 +14,9 @@ int UF_find(UF *graph, int node);
 // Faz união entre dois nós da estrutura
 void UF_union(UF *graph, int p, int q);
 
+// Imprime raizes de todos os nós da estrutura
+void UF_print(UF *graph);
+
 // Libera a estrutura union-find e seus elementos da memória
 void UF_free(UF *graph);
 

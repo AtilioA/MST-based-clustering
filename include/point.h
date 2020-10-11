@@ -15,7 +15,7 @@ double Point_calc_dist(Point *p1, Point *p2, int nDimensions);
 // Obtém o nome de um ponto (sequência de caracteres que o identifica)
 char *Point_get_name(Point *point);
 // Obtém coordenadas do ponto
-int *Point_get_coordinates(Point *point);
+double *Point_get_coordinates(Point *point);
 
 // Imprime vetor de pontos
 void Point_print_array(Point **points, int size, int nDimensions);

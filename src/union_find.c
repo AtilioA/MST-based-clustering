@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "../include/union_find.h"
 
@@ -58,6 +59,14 @@ void UF_union(UF *graph, int p, int q)
             graph->ids[j] = i;
             graph->sizes[i] += graph->sizes[j];
         }
+    }
+}
+
+void UF_print(UF *graph)
+{
+    for (int i = 0; i < graph->N; i++)
+    {
+        printf("Nó %i tem raiz %i\n", i, UF_find(graph, i));
     }
 }
 
