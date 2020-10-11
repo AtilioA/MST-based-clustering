@@ -6,7 +6,7 @@ EXE 	 := trab1
 PROJETO  := main
 
 # Cria objetos de todos os arquivos de código-fonte para então linká-los no programa final
-main: clean $(OBJ)/kruskal.o $(OBJ)/dists.o $(OBJ)/point.o $(OBJ)/union_find.o $(OBJ)/linked_list.o $(OBJ)/utils.o $(OBJ)/$(PROJETO).o
+main: clean $(OBJ)/kruskal.o $(OBJ)/dists.o $(OBJ)/point.o $(OBJ)/union_find.o $(OBJ)/utils.o $(OBJ)/$(PROJETO).o
 	gcc $(OBJ)/*.o -o $(EXE) $(CFLAGS)
 
 $(OBJ)/kruskal.o: $(SRC)/kruskal.c $(INC)/kruskal.h
@@ -20,9 +20,6 @@ $(OBJ)/point.o: $(SRC)/point.c $(INC)/point.h
 
 $(OBJ)/utils.o: $(SRC)/utils.c $(INC)/utils.h
 	gcc -c $(CFLAGS) "$(SRC)/utils.c" -o "$(OBJ)/utils.o"
-
-$(OBJ)/linked_list.o: $(SRC)/linked_list.c $(INC)/linked_list.h
-	gcc -c $(CFLAGS) "$(SRC)/linked_list.c" -o "$(OBJ)/linked_list.o"
 
 $(OBJ)/union_find.o: $(SRC)/union_find.c $(INC)/union_find.h
 	gcc -c $(CFLAGS) "$(SRC)/union_find.c" -o "$(OBJ)/union_find.o"
