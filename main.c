@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     // Salva nome do arquivo de entrada dos argumentos
     char *fileIn = argv[1];
     // Salva quantidade de grupos
-    // int k = atoi(argv[2]);
+    int k = atoi(argv[2]);
     // Salva nome do arquivo de saída
     // char *fileOut = argv[3];
 
@@ -57,21 +57,16 @@ int main(int argc, char *argv[])
     distArray = Dist_sort(distArray, nLines);
 
     printf("Gerando árvore geradora mínima...\n");
-    UF *MST = generate_MST_kruskal(distArray, points_array, nLines);
+    UF *MST = generate_MST_kruskal(distArray, points_array, nLines, k);
 
-    // Remover k - 1 arestas restantes
+    // points_array = Point_sort(points_array, nLines, MST);
 
-    // Criar lista de grupos e/ou grupos que serão listas contendo nós do UF
+    // Ordenar vetor de pontos em ordem alfabética com strcmp e qsort
+    // Escrever grupos já ordenados alfabeticamente num arquivo de saída obtido no argv
 
-    // Ordenar grupo internamente em ordem alfabética com strcmp
-
-    // Ordenar grupos por ordem alfabética com strcmp
-
-    // Escrever grupos em ordem alfabética num arquivo de saída obtido no argv
-
-    // Point_print_array(points_array, nLines, nDimensions);
+    Point_print_array(points_array, nLines, nDimensions);
     // Dist_print_array(distArray, nLines);
-    // UF_print(MST);
+    UF_print(MST, points_array);
 
     // Libera estruturas da memória
     for (int i = 0; i < nLines; i++)

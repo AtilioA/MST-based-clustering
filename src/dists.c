@@ -42,7 +42,7 @@ void Dist_print_array(Dist *distances, int nPoints)
 }
 
 // Comparador entre duas distâncias
-int comparator(const void *d1, const void *d2)
+int Dist_comparator(const void *d1, const void *d2)
 {
     if (((Dist *)d1)->value > ((Dist *)d2)->value)
     {
@@ -62,19 +62,20 @@ Dist *Dist_sort(Dist *distances, int nPoints)
 {
     int nDistances = (nPoints * (nPoints - 1)) / 2;
 
-    qsort(distances, nDistances, sizeof(Dist), comparator);
+    qsort(distances, nDistances, sizeof(Dist), Dist_comparator);
 
     return distances;
 }
 
-UF *generate_MST_kruskal(Dist *distArray, Point **points_array, int nPoints)
+UF *generate_MST_kruskal(Dist *distArray, Point **points_array, int nPoints, int nGroups)
 {
     UF *MST = UF_init(nPoints);
     int pIndex = 0, qIndex = 0;
+    int possibleGroups = nPoints;
 
     int nDistances = (nPoints * (nPoints - 1)) / 2;
 
-    for (int i = 0; i < nDistances; i++)
+    for (int i = 0; possibleGroups != nGroups; i++)
     {
         pIndex = distArray[i].pIndex;
         Point *p = points_array[pIndex];
@@ -86,6 +87,7 @@ UF *generate_MST_kruskal(Dist *distArray, Point **points_array, int nPoints)
         {
             // printf("Iteração nº%i:\tfind %i != %i\tDist: %lf\n", i, qIndex, pIndex, distArray[i].value);
             UF_union(MST, pIndex, qIndex);
+            possibleGroups--;
         }
         else
         {
