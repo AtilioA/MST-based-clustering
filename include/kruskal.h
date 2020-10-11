@@ -4,6 +4,6 @@
 #include "point.h"
 
 // Não consegui implementar aqui 🤔
-// UF *get_mst_kruskal(Dist *distArray, Point **points_array, int nPoints);
+// UF *generate_MST_kruskal(Dist *distArray, Point **points_array, int nPoints);
 
 #endif

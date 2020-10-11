@@ -5,16 +5,21 @@
 #include "include/union_find.h"
 #include "include/point.h"
 #include "include/dists.h"
+// #include "include/kruskal.h"
 
 int main(int argc, char *argv[])
 {
+    if (argc < 3)
+    {
+        return EXIT_FAILURE;
+    }
+
     // Salva nome do arquivo de entrada dos argumentos
     char *fileIn = argv[1];
     // Salva quantidade de grupos
     // int k = atoi(argv[2]);
     // Salva nome do arquivo de saída
     // char *fileOut = argv[3];
-    // int nDimensions;
 
     // Abre arquivo de entrada
     FILE *fp = fopen(fileIn, "r");
@@ -25,8 +30,9 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    printf("\nLendo arquivo de entrada...\n");
     int nLines = count_lines(fp);
-    printf("\n'%s' possui %i linhas.", fileIn, nLines);
+    printf("'%s' possui %i linhas.", fileIn, nLines);
 
     // Volta para o começo do arquivo
     rewind(fp);
@@ -38,18 +44,20 @@ int main(int argc, char *argv[])
 
     rewind(fp);
     read_input_file(fp, linesIDs, pointsVectorizedMatrix);
+    printf("Fim da leitura do arquivo de entrada.\n\n");
+    fclose(fp);
 
     Point **points_array;
-
     points_array = Point_array_init(linesIDs, pointsVectorizedMatrix, nLines, nDimensions);
 
-    Point_print_array(points_array, nLines, nDimensions);
-
+    printf("Calculando distâncias...\n");
     Dist *distArray = Dist_create_array(points_array, nLines, nDimensions);
 
+    printf("Ordenando distâncias...\n");
     distArray = Dist_sort(distArray, nLines);
 
-    // Rodar algoritmo de Kruskal com distArray
+    printf("Gerando árvore geradora mínima...\n");
+    UF *MST = generate_MST_kruskal(distArray, points_array, nLines);
 
     // Remover k - 1 arestas restantes
 
@@ -61,9 +69,9 @@ int main(int argc, char *argv[])
 
     // Escrever grupos em ordem alfabética num arquivo de saída obtido no argv
 
-    Dist_print_array(distArray, nLines);
-
-    fclose(fp);
+    // Point_print_array(points_array, nLines, nDimensions);
+    // Dist_print_array(distArray, nLines);
+    // UF_print(MST);
 
     // Libera estruturas da memória
     for (int i = 0; i < nLines; i++)
@@ -72,6 +80,7 @@ int main(int argc, char *argv[])
     }
     Point_free_array(points_array, nLines);
     free(distArray);
+    UF_free(MST);
 
     return 0;
 }
