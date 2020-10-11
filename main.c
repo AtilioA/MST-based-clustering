@@ -43,11 +43,11 @@ int main(int argc, char *argv[])
 
     points_array = Point_array_init(linesIDs, pointsVectorizedMatrix, nLines, nDimensions);
 
-    print_points(points_array, nLines, nDimensions);
+    Point_print_array(points_array, nLines, nDimensions);
 
-    Dist *distArray = create_distance_array(points_array, nLines, nDimensions);
+    Dist *distArray = Dist_create_array(points_array, nLines, nDimensions);
 
-    distArray = dist_sort(distArray, nLines);
+    distArray = Dist_sort(distArray, nLines);
 
     // Rodar algoritmo de Kruskal com distArray
 
@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 
     // Escrever grupos em ordem alfabética num arquivo de saída obtido no argv
 
-    print_dists(distArray, nLines);
+    Dist_print_array(distArray, nLines);
 
     fclose(fp);
 
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
     {
         free(linesIDs[i]);
     }
-    destroy_point_array(points_array, nLines);
+    Point_free_array(points_array, nLines);
     free(distArray);
 
     return 0;

@@ -61,7 +61,7 @@ void UF_union(UF *graph, int p, int q)
     }
 }
 
-void UF_destroy(UF *graph)
+void UF_free(UF *graph)
 {
     if (graph->ids != NULL)
     {

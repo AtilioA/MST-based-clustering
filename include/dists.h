@@ -7,12 +7,12 @@
 typedef struct dist Dist;
 
 // Cria vetor de distâncias a partir do vetor com todos os pontos
-Dist *create_distance_array(Point **points, int nPoints, int nDimensions);
+Dist *Dist_create_array(Point **points, int nPoints, int nDimensions);
 
 // Imprime o vetor de distâncias
-void print_dists(Dist *distances, int nPoints);
+void Dist_print_array(Dist *distances, int nPoints);
 
 // Ordena o vetor de distâncias
-Dist *dist_sort(Dist *distances, int nPoints);
+Dist *Dist_sort(Dist *distances, int nPoints);
 
 #endif

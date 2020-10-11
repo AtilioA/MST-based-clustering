@@ -11,7 +11,7 @@ struct dist
     double value;
 };
 
-Dist *create_distance_array(Point **points_array, int nPoints, int nDimensions)
+Dist *Dist_create_array(Point **points_array, int nPoints, int nDimensions)
 {
     int nDistances = (nPoints * (nPoints - 1)) / 2;
     Dist *distances = (Dist *)malloc(nDistances * sizeof(Dist));
@@ -23,7 +23,7 @@ Dist *create_distance_array(Point **points_array, int nPoints, int nDimensions)
         for (int j = i + 1; j < nPoints; j++)
         {
 
-            distances[count].value = calc_dist_points(points_array[i], points_array[j], nDimensions);
+            distances[count].value = Point_calc_dist(points_array[i], points_array[j], nDimensions);
             distances[count].pIndex = i;
             distances[count].qIndex = j;
             count++;
@@ -32,7 +32,7 @@ Dist *create_distance_array(Point **points_array, int nPoints, int nDimensions)
     return distances;
 }
 
-void print_dists(Dist *distances, int nPoints)
+void Dist_print_array(Dist *distances, int nPoints)
 {
     int nDistances = (nPoints * (nPoints - 1)) / 2;
     for (int i = 0; i < nDistances; i++)
@@ -58,7 +58,7 @@ int comparator(const void *d1, const void *d2)
     }
 }
 
-Dist *dist_sort(Dist *distances, int nPoints)
+Dist *Dist_sort(Dist *distances, int nPoints)
 {
     int nDistances = (nPoints * (nPoints - 1)) / 2;
 

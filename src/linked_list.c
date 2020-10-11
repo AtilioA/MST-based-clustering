@@ -15,7 +15,7 @@ struct linked_list
     int size;
 };
 
-void create_list(LinkedList *list)
+void LinkedList_create(LinkedList *list)
 {
     list->first = (Node *)malloc(sizeof(Node));
 
@@ -35,7 +35,7 @@ Node *create_node(void *item)
     return node;
 }
 
-void insert_list(LinkedList *list, void *item)
+void LinkedList_insert(LinkedList *list, void *item)
 {
     // Inserindo primeiro elemento
     if (list->first == NULL)
@@ -55,7 +55,7 @@ void insert_list(LinkedList *list, void *item)
     list->size++;
 }
 
-void delete_from_list(LinkedList *list, Node *removedNode)
+void LinkedList_delete_node(LinkedList *list, Node *removedNode)
 {
     // Removendo único elemento
     if (list->first == list->last)
@@ -83,7 +83,7 @@ void delete_from_list(LinkedList *list, Node *removedNode)
     free(removedNode);
 }
 
-void print_list(LinkedList *list)
+void LinkedList_print(LinkedList *list)
 {
     Node *current = list->first;
 
@@ -96,7 +96,7 @@ void print_list(LinkedList *list)
     }
 }
 
-void destroy_list(LinkedList *list)
+void LinkedList_free(LinkedList *list)
 {
     Node *atual = list->first;
 

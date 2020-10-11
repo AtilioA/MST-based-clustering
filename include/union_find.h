@@ -15,7 +15,7 @@ int UF_find(UF *graph, int node);
 void UF_union(UF *graph, int p, int q);
 
 // Libera a estrutura union-find e seus elementos da memória
-void UF_destroy(UF *graph);
+void UF_free(UF *graph);
 
 // Obtém o número de nós do union-find
 int UF_get_N(UF *graph);

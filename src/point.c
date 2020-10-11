@@ -55,7 +55,7 @@ Point **Point_array_init(char **names, double *coordinates, int nPoints, int nDi
     return point_array;
 }
 
-double calc_dist_points(Point *p1, Point *p2, int nDimensions)
+double Point_calc_dist(Point *p1, Point *p2, int nDimensions)
 {
     double sum = 0;
 
@@ -67,7 +67,7 @@ double calc_dist_points(Point *p1, Point *p2, int nDimensions)
     return sqrt(sum);
 }
 
-void print_points(Point **points, int size, int nDimensions)
+void Point_print_array(Point **points, int size, int nDimensions)
 {
     for (int i = 0; i < size; i++)
     {
@@ -81,19 +81,19 @@ void print_points(Point **points, int size, int nDimensions)
     }
 }
 
-void destroy_point(Point *p)
+void Point_free(Point *p)
 {
     free(p->name);
     free(p->coordinates);
     free(p);
 }
 
-void destroy_point_array(Point **points, int size)
+void Point_free_array(Point **points, int size)
 {
     int count = 0;
     while (count < size)
     {
-        destroy_point(points[count]);
+        Point_free(points[count]);
         count++;
     }
 
