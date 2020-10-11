@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/union_find.h"
+#include "../include/point.h"
 
 struct union_find
 {
@@ -62,11 +63,11 @@ void UF_union(UF *graph, int p, int q)
     }
 }
 
-void UF_print(UF *graph)
+void UF_print(UF *graph, Point **points)
 {
     for (int i = 0; i < graph->N; i++)
     {
-        printf("Nó %i tem raiz %i\n", i, UF_find(graph, i));
+        printf("Ponto: %s Raiz: %s\n", Point_get_name(points[i]), Point_get_name(points[UF_find(graph, i)]));
     }
 }
 

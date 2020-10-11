@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "../include/point.h"
+#include "../include/union_find.h"
 
 struct point
 {
@@ -65,6 +66,34 @@ double Point_calc_dist(Point *p1, Point *p2, int nDimensions)
     }
 
     return sqrt(sum);
+}
+
+int Point_lexicographical_comparator(const void *a, const void *b, UF *graph)
+{
+    Point *p = *((Point **)a);
+    Point *q = *((Point **)b);
+
+    char *pRootName = Point_get_name(UF_find(graph, p));
+    char *qRootName = Point_get_name(UF_find(graph, q));
+
+    int comparePointsSameGroup = strcmp(pRootName, qRootName);
+    if (comparePointsSameGroup != 0)
+    {
+        return comparePointsSameGroup;
+    }
+    else
+    {
+        char *pName = Point_get_name(p);
+        char *qName = Point_get_name(q);
+        return strcmp(pName, qName);
+    }
+}
+
+Point **Point_sort(Point **points, int nPoints, UF *graph)
+{
+    qsort(points, nPoints, sizeof(Point *), Point_lexicographical_comparator);
+
+    return points;
 }
 
 void Point_print_array(Point **points, int size, int nDimensions)

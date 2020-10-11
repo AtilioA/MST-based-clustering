@@ -1,6 +1,8 @@
 #ifndef __UNION_FIND_H_
 #define __UNION_FIND_H_
 
+#include "../include/point.h"
+
 // Tipo opaco para union-find
 // Representa a árvore geradora mínima na execução da main
 
@@ -15,7 +17,8 @@ int UF_find(UF *graph, int node);
 void UF_union(UF *graph, int p, int q);
 
 // Imprime raizes de todos os nós da estrutura
-void UF_print(UF *graph);
+// void UF_print(UF *graph);
+void UF_print(UF *graph, Point **points);
 
 // Libera a estrutura union-find e seus elementos da memória
 void UF_free(UF *graph);
