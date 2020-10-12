@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "../include/union_find.h"
 
 int determine_dimensions(FILE *fp)
 {
@@ -80,6 +81,26 @@ int read_input_file(FILE *fp, char **names, double *coordenates)
     lineBuffer = NULL;
 
     return 0;
+}
+
+// Falta escrever o último
+void write_output_file(FILE *fpOut, Point **points, UF *MST)
+{
+    for (int i = 0; i < UF_get_N(MST) - 1; i++)
+    {
+        char *currentRootName = UF_get_name_by_id(MST, UF_find(MST, Point_get_id(points[i])));
+        char *nextRootName = UF_get_name_by_id(MST, UF_find(MST, Point_get_id(points[i + 1])));
+        char *currentPointName = UF_get_name_by_id(MST, Point_get_id(points[i]));
+
+        if (strcmp(currentRootName, nextRootName) == 0)
+        {
+            fprintf(fpOut, "%s,", currentPointName);
+        }
+        else
+        {
+            fprintf(fpOut, "%s\n", currentPointName);
+        }
+    }
 }
 
 int count_lines(FILE *fp)
