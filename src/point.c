@@ -9,6 +9,7 @@ struct point
 {
     char *name;
     double *coordinates;
+    int id;
 };
 
 char *Point_get_name(Point *point)
@@ -21,13 +22,14 @@ double *Point_get_coordinates(Point *point)
     return point->coordinates;
 }
 
-Point *Point_init(char *name, double *coordinates, int nDimensions)
+Point *Point_init(char *name, double *coordinates, int nDimensions, int id)
 {
     Point *point = malloc(sizeof(Point));
 
     point->name = malloc((strlen(name) + 1) * sizeof(char));
     strcpy(point->name, name);
     point->coordinates = malloc(nDimensions * sizeof(double));
+    point->id = id;
 
     for (int i = 0; i < nDimensions; i++)
     {
@@ -50,7 +52,7 @@ Point **Point_array_init(char **names, double *coordinates, int nPoints, int nDi
         {
             p_coordinates[j] = coordinates[i + j];
         }
-        point_array[(int)(i / nDimensions)] = Point_init(names[(int)(i / nDimensions)], p_coordinates, nDimensions);
+        point_array[(int)(i / nDimensions)] = Point_init(names[(int)(i / nDimensions)], p_coordinates, nDimensions, (int)(i / nDimensions));
     }
 
     return point_array;
@@ -68,15 +70,17 @@ double Point_calc_dist(Point *p1, Point *p2, int nDimensions)
     return sqrt(sum);
 }
 
-int Point_lexicographical_comparator(const void *a, const void *b, UF *graph)
+int Point_lexicographical_comparator(const void *a, const void *b, void *g)
 {
     Point *p = *((Point **)a);
     Point *q = *((Point **)b);
+    UF *graph = (UF *)g;
 
-    char *pRootName = Point_get_name(UF_find(graph, p));
-    char *qRootName = Point_get_name(UF_find(graph, q));
+    char *pRootName = UF_get_name_by_id(graph, UF_find(graph, p->id));
+    char *qRootName = UF_get_name_by_id(graph, UF_find(graph, q->id));
 
     int comparePointsSameGroup = strcmp(pRootName, qRootName);
+    printf("%s e %s: %d\n", pRootName, qRootName, comparePointsSameGroup);
     if (comparePointsSameGroup != 0)
     {
         return comparePointsSameGroup;
@@ -89,10 +93,12 @@ int Point_lexicographical_comparator(const void *a, const void *b, UF *graph)
     }
 }
 
-Point **Point_sort(Point **points, int nPoints, UF *graph)
+Point **Point_sort(Point **points, int nPoints, void *g)
 {
-    qsort(points, nPoints, sizeof(Point *), Point_lexicographical_comparator);
-
+    UF *graph = (UF *)g;
+    printf("BORA DE ORDENACAO\n");
+    qsort_r(points, nPoints, sizeof(Point *), Point_lexicographical_comparator, graph);
+    printf("FODASE ACABOU\n");
     return points;
 }
 

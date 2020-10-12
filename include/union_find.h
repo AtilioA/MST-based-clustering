@@ -9,7 +9,7 @@
 typedef struct union_find UF;
 
 // Inicializa uma estrutura union-find
-UF *UF_init(int N);
+UF *UF_init(int N, char **names);
 
 // Busca a raiz de um nó da estrutura
 int UF_find(UF *graph, int node);
@@ -29,5 +29,9 @@ int UF_get_N(UF *graph);
 int *UF_get_ids(UF *graph);
 // Obtém vetor de tamanhos das árvores nas quais os nós estão contidos
 int *UF_get_sizes(UF *graph);
+
+char **UF_get_names(UF *graph);
+
+char *UF_get_name_by_id(UF *graph, int id);
 
 #endif

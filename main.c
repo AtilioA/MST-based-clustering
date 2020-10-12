@@ -57,9 +57,9 @@ int main(int argc, char *argv[])
     distArray = Dist_sort(distArray, nLines);
 
     printf("Gerando árvore geradora mínima...\n");
-    UF *MST = generate_MST_kruskal(distArray, points_array, nLines, k);
+    UF *MST = generate_MST_kruskal(distArray, points_array, nLines, linesIDs, k);
 
-    // points_array = Point_sort(points_array, nLines, MST);
+    points_array = Point_sort(points_array, nLines, MST);
 
     // Ordenar vetor de pontos em ordem alfabética com strcmp e qsort
     // Escrever grupos já ordenados alfabeticamente num arquivo de saída obtido no argv

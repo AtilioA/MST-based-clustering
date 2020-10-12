@@ -6,7 +6,7 @@
 typedef struct point Point;
 
 // Inicializa um ponto m-dimensional
-Point *Point_init(char *name, double *dimensions, int nDimensions);
+Point *Point_init(char *name, double *dimensions, int nDimensions, int id);
 // Inicializa um vetor de pontos m-dimensional
 Point **Point_array_init(char **names, double *coordenates, int nPoints, int nDimensions);
 // Calcula distância entre dois pontos de mesma dimensão
@@ -25,5 +25,7 @@ void Point_free(Point *p);
 
 // Libera vetor de pontos da memória
 void Point_free_array(Point **points, int size);
+
+Point **Point_sort(Point **points, int nPoints, void *graph);
 
 #endif

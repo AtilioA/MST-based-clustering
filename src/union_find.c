@@ -8,12 +8,12 @@ struct union_find
     int N;
     int *ids;
     int *sizes;
+    char **names;
 };
 
-UF *UF_init(int N)
+UF *UF_init(int N, char **names)
 {
     UF *graph = (UF *)malloc(sizeof(UF));
-
     int *ids = (int *)malloc(N * sizeof(int));
     int *sizes = (int *)malloc(N * sizeof(int));
 
@@ -25,6 +25,7 @@ UF *UF_init(int N)
 
     graph->ids = ids;
     graph->sizes = sizes;
+    graph->names = names;
     graph->N = N;
 
     return graph;
@@ -102,4 +103,12 @@ int *UF_get_ids(UF *graph)
 int *UF_get_sizes(UF *graph)
 {
     return graph->sizes;
+}
+char **UF_get_names(UF *graph)
+{
+    return graph->names;
+}
+char *UF_get_name_by_id(UF *graph, int id)
+{
+    return graph->names[id];
 }
