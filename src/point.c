@@ -101,9 +101,7 @@ int Point_lexicographical_comparator(const void *a, const void *b, void *g)
 Point **Point_sort(Point **points, int nPoints, void *g)
 {
     UF *graph = (UF *)g;
-    printf("BORA DE ORDENACAO\n");
     qsort_r(points, nPoints, sizeof(Point *), Point_lexicographical_comparator, graph);
-    printf("FODASE ACABOU\n");
     return points;
 }
 
