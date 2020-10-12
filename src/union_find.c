@@ -68,7 +68,7 @@ void UF_print(UF *graph, Point **points)
 {
     for (int i = 0; i < graph->N; i++)
     {
-        printf("Ponto: %s Raiz: %s\n", Point_get_name(points[i]), Point_get_name(points[UF_find(graph, i)]));
+        printf("Ponto: %s Raiz: %s\n", Point_get_name(points[i]), Point_get_name(points[UF_find(graph, Point_get_id(points[i]))]));
     }
 }
 

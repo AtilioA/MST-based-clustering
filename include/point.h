@@ -28,4 +28,6 @@ void Point_free_array(Point **points, int size);
 
 Point **Point_sort(Point **points, int nPoints, void *graph);
 
+int Point_get_id(Point *p);
+
 #endif

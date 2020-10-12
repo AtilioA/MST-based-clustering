@@ -17,6 +17,11 @@ char *Point_get_name(Point *point)
     return point->name;
 }
 
+int Point_get_id(Point *p)
+{
+    return p->id;
+}
+
 double *Point_get_coordinates(Point *point)
 {
     return point->coordinates;
@@ -80,7 +85,7 @@ int Point_lexicographical_comparator(const void *a, const void *b, void *g)
     char *qRootName = UF_get_name_by_id(graph, UF_find(graph, q->id));
 
     int comparePointsSameGroup = strcmp(pRootName, qRootName);
-    printf("%s e %s: %d\n", pRootName, qRootName, comparePointsSameGroup);
+    printf("%s e %s: \nids: %d e %d\nresultado:%d\n\n", pRootName, qRootName, UF_find(graph, p->id), UF_find(graph, q->id), comparePointsSameGroup);
     if (comparePointsSameGroup != 0)
     {
         return comparePointsSameGroup;
@@ -106,7 +111,7 @@ void Point_print_array(Point **points, int size, int nDimensions)
 {
     for (int i = 0; i < size; i++)
     {
-        printf("Ponto %d\n", i);
+        printf("Ponto %d\n", points[i]->id);
         printf("Nome: %s\n", points[i]->name);
         for (int j = 0; j < nDimensions; j++)
         {
