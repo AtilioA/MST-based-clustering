@@ -14,11 +14,11 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    // Salva nome do arquivo de entrada dos argumentos
+    // Guarda nome do arquivo de entrada dos argumentos
     char *fileIn = argv[1];
-    // Salva quantidade de grupos
+    // Guarda quantidade de grupos
     int k = atoi(argv[2]);
-    // Salva nome do arquivo de saída
+    // Guarda nome do arquivo de saída
     char *fileOut = argv[3];
 
     // Abre arquivo de entrada
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
     // Dist_print_array(distArray, nLines);
     UF_print(MST, points_array);
 
-    // Abre arquivo de entrada
+    // Abre arquivo de saída
     FILE *fpOut = fopen(fileOut, "w");
 
     if (!fpOut)

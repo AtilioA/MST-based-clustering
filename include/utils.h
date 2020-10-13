@@ -10,7 +10,7 @@
 int count_lines(FILE *fp);
 // Lê e retorna quantas dimensões um ponto de um arquivo de entrada possui
 int determine_dimensions(FILE *fp);
-// Lê um arquivo de entrada
+// Lê um arquivo de entrada, populando vetor de strings de nomes e vetor de coordenadas
 int read_input_file(FILE *fp, char **names, double *coordenates);
 // Escreve os grupos num arquivo de saída
 void write_output_file(FILE *fpOut, Point **points, UF *MST);

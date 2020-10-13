@@ -83,24 +83,33 @@ int read_input_file(FILE *fp, char **names, double *coordenates)
     return 0;
 }
 
-// Falta escrever o último
 void write_output_file(FILE *fpOut, Point **points, UF *MST)
 {
-    for (int i = 0; i < UF_get_N(MST) - 1; i++)
+    int i = 0;
+    char *currentPointName = NULL;
+
+    // Escreve todos os pontos exceto o último
+    for (i = 0; i < UF_get_N(MST) - 1; i++)
     {
         char *currentRootName = UF_get_name_by_id(MST, UF_find(MST, Point_get_id(points[i])));
         char *nextRootName = UF_get_name_by_id(MST, UF_find(MST, Point_get_id(points[i + 1])));
-        char *currentPointName = UF_get_name_by_id(MST, Point_get_id(points[i]));
+        currentPointName = UF_get_name_by_id(MST, Point_get_id(points[i]));
 
+        // Caso seja do mesmo grupo
         if (strcmp(currentRootName, nextRootName) == 0)
         {
             fprintf(fpOut, "%s,", currentPointName);
         }
+        // Caso sejam grupos diferentes
         else
         {
             fprintf(fpOut, "%s\n", currentPointName);
         }
     }
+
+    // Escreve último ponto
+    currentPointName = UF_get_name_by_id(MST, Point_get_id(points[i]));
+    fprintf(fpOut, "%s", currentPointName);
 }
 
 int count_lines(FILE *fp)
