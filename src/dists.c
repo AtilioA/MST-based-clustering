@@ -67,21 +67,16 @@ Dist *Dist_sort(Dist *distances, int nPoints)
     return distances;
 }
 
-UF *generate_MST_kruskal(Dist *distArray, Point **points_array, int nPoints, char **names, int nGroups)
+UF *generate_MST_kruskal(Dist *distArray, int nPoints, char **names, int nGroups)
 {
     UF *MST = UF_init(nPoints, names);
     int pIndex = 0, qIndex = 0;
     int possibleGroups = nPoints;
 
-    int nDistances = (nPoints * (nPoints - 1)) / 2;
-
     for (int i = 0; possibleGroups != nGroups; i++)
     {
         pIndex = distArray[i].pIndex;
-        Point *p = points_array[pIndex];
-
         qIndex = distArray[i].qIndex;
-        Point *q = points_array[pIndex];
 
         if (UF_find(MST, pIndex) != UF_find(MST, qIndex))
         {

@@ -1,16 +1,13 @@
 OBJ      := obj
 SRC      := src
 INC      := include
-CFLAGS   := -lm -g -O0 -Wall -pedantic -Wextra -Wwrite-strings -Wno-format  -Wno-discarded-qualifiers -Wno-unused-variable  # -Werror
+CFLAGS   := -lm -g -O0 -Wall -pedantic -Wextra -Wwrite-strings # -Werror
 EXE 	 := trab1
 PROJETO  := main
 
 # Cria objetos de todos os arquivos de código-fonte para então linká-los no programa final
-main: clean $(OBJ)/kruskal.o $(OBJ)/dists.o $(OBJ)/point.o $(OBJ)/union_find.o $(OBJ)/utils.o $(OBJ)/$(PROJETO).o
+main: clean $(OBJ)/dists.o $(OBJ)/point.o $(OBJ)/union_find.o $(OBJ)/utils.o $(OBJ)/$(PROJETO).o
 	gcc $(OBJ)/*.o -o $(EXE) $(CFLAGS)
-
-$(OBJ)/kruskal.o: $(SRC)/kruskal.c $(INC)/kruskal.h
-	gcc -c $(CFLAGS) "$(SRC)/kruskal.c" -o "$(OBJ)/kruskal.o"
 
 $(OBJ)/dists.o: $(SRC)/dists.c $(INC)/dists.h
 	gcc -c $(CFLAGS) "$(SRC)/dists.c" -o "$(OBJ)/dists.o"

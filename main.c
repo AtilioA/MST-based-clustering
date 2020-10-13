@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
     distArray = Dist_sort(distArray, nLines);
 
     printf("Gerando árvore geradora mínima...\n");
-    UF *MST = generate_MST_kruskal(distArray, points_array, nLines, linesIDs, k);
+    UF *MST = generate_MST_kruskal(distArray, nLines, linesIDs, k);
 
     points_array = Point_sort(points_array, nLines, MST);
 

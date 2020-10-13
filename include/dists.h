@@ -23,6 +23,6 @@ int Dist_get_qIndex(Dist *dist);
 // Obtém o valor da distância entre P e Q
 double Dist_get_value(Dist *dist);
 
-UF *generate_MST_kruskal(Dist *distArray, Point **points_array, int nPoints, char **names, int nGroups);
+UF *generate_MST_kruskal(Dist *distArray, int nPoints, char **names, int nGroups);
 
 #endif
