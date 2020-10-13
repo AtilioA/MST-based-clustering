@@ -85,7 +85,7 @@ int Point_lexicographical_comparator(const void *a, const void *b, void *g)
     char *qRootName = UF_get_name_by_id(graph, UF_find(graph, q->id));
 
     int comparePointsSameGroup = strcmp(pRootName, qRootName);
-    printf("%s e %s: \nids: %d e %d\nresultado:%d\n\n", pRootName, qRootName, UF_find(graph, p->id), UF_find(graph, q->id), comparePointsSameGroup);
+    // printf("%s e %s: \nids: %d e %d\nresultado:%d\n\n", pRootName, qRootName, UF_find(graph, p->id), UF_find(graph, q->id), comparePointsSameGroup);
     if (comparePointsSameGroup != 0)
     {
         return comparePointsSameGroup;

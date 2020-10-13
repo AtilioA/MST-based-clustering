@@ -62,11 +62,10 @@ int main(int argc, char *argv[])
     points_array = Point_sort(points_array, nLines, MST);
 
     // Ordenar vetor de pontos em ordem alfabética com strcmp e qsort
-    // Escrever grupos já ordenados alfabeticamente num arquivo de saída obtido no argv
 
-    Point_print_array(points_array, nLines, nDimensions);
+    // Point_print_array(points_array, nLines, nDimensions);
     // Dist_print_array(distArray, nLines);
-    UF_print(MST, points_array);
+    // UF_print(MST, points_array);
 
     // Abre arquivo de saída
     FILE *fpOut = fopen(fileOut, "w");
@@ -77,6 +76,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    // Escreve grupos no arquivo de saída
     write_output_file(fpOut, points_array, MST);
 
     fclose(fpOut);
@@ -90,5 +90,5 @@ int main(int argc, char *argv[])
     free(distArray);
     UF_free(MST);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
