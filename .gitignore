@@ -51,6 +51,8 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-trab1
+trab*
 /*.txt
 *.zip
+*.png
+*.js

@@ -120,8 +120,8 @@ Point **Point_k_sort(Point **points, int nPoints, void *g)
             current_id = UF_find(graph, points[i]->id);
             new_group_id = points[i]->id;
         }
-        printf("Elemento: %s\n", points[i]->name);
-        printf("CURRENT_ID: %d\nNEW_ID: %d\nID: %d\n\n", current_id, new_group_id, points[i]->id);
+        // printf("Elemento: %s\n", points[i]->name);
+        // printf("CURRENT_ID: %d\nNEW_ID: %d\nID: %d\n\n", current_id, new_group_id, points[i]->id);
         UF_set_id(points[i]->id, new_group_id, graph);
     }
 

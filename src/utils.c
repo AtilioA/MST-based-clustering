@@ -109,7 +109,7 @@ void write_output_file(FILE *fpOut, Point **points, UF *MST)
 
     // Escreve último ponto
     currentPointName = UF_get_name_by_id(MST, Point_get_id(points[i]));
-    fprintf(fpOut, "%s", currentPointName);
+    fprintf(fpOut, "%s\n", currentPointName);
 }
 
 int count_lines(FILE *fp)

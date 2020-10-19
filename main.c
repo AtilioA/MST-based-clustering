@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 
     rewind(fpIn);
     read_input_file(fpIn, linesIDs, pointsVectorizedMatrix);
-    printf("Fim da leitura do arquivo de entrada.\n\n");
+    printf("Fim da leitura do arquivo de entrada.\n");
     fclose(fpIn);
 
     clocksRead = clock() - clocksRead;
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     // Começo do cálculo das distâncias
     clock_t clocksCalcDist = clock();
 
-    printf("Calculando distâncias...\n");
+    printf("\nCalculando distâncias...\n");
     Dist *distArray = Dist_create_array(points_array, nLines, nDimensions);
     // Fim do cálculo das distâncias
 
@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
     // Começo da obtenção da MST
     clock_t clocksMST = clock();
 
-    printf("Gerando árvore geradora mínima...\n");
+    printf("\nGerando árvore geradora mínima...\n");
     UF *MST = generate_MST_kruskal(distArray, nLines, linesIDs, k);
 
     clocksMST = clock() - clocksMST;
@@ -114,12 +114,12 @@ int main(int argc, char *argv[])
 
     if (!fpOut)
     {
-        fprintf(stderr, "Falha ao abrir o arquivo '%s'.\n", fileIn);
+        fprintf(stderr, "\nFalha ao abrir o arquivo '%s'.\n", fileOut);
         return -1;
     }
 
     // Escreve grupos no arquivo de saída
-    printf("Escrevendo grupos em '%s'...\n");
+    printf("\nEscrevendo grupos em '%s'...\n", fileOut);
     write_output_file(fpOut, points_array, MST);
 
     fclose(fpOut);
@@ -138,7 +138,15 @@ int main(int argc, char *argv[])
     free(distArray);
     UF_free(MST);
 
-    printf("Fim.\n");
+    printf("\nFim.\n");
+
+    printf("\n======= TEMPOS %s =======\n", fileIn);
+    printf("%-27s %lfs\n", "Leitura:", timeTakenRead);
+    printf("%-29s %lfs\n", "Cálculo de distâncias:", timeTakenCalcDist);
+    printf("%-30s %lfs\n", "Ordenação de distâncias:", timeTakenSortDist);
+    printf("%-29s %lfs\n", "Identificação de grupos:", timeTakenIDGroups);
+    printf("%-29s %lfs\n", "Obtenção da MST:", timeTakenMST);
+    printf("%-27s %lfs\n", "Escrita:", timeTakenWrite);
 
     return EXIT_SUCCESS;
 }
