@@ -61,6 +61,8 @@ int main(int argc, char *argv[])
 
     points_array = Point_sort(points_array, nLines, MST);
 
+    points_array = Point_k_sort(points_array, nLines, MST);
+
     // Ordenar vetor de pontos em ordem alfabética com strcmp e qsort
 
     // Point_print_array(points_array, nLines, nDimensions);

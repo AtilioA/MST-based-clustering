@@ -34,4 +34,6 @@ char **UF_get_names(UF *graph);
 
 char *UF_get_name_by_id(UF *graph, int id);
 
+void UF_set_id(int i, int j, UF *graph);
+
 #endif

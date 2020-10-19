@@ -112,3 +112,12 @@ char *UF_get_name_by_id(UF *graph, int id)
 {
     return graph->names[id];
 }
+
+void UF_set_id(int i, int j, UF *graph)
+{
+    graph->ids[i] = j;
+}
+void UF_set_sizes(int i, int size, UF *graph)
+{
+    graph->sizes[i] = size;
+}
