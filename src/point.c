@@ -110,16 +110,19 @@ Point **Point_k_sort(Point **points, int nPoints, void *g)
     UF *graph = (UF *)g;
     int current_id = UF_find(g, points[0]->id);
     int new_group_id = points[0]->id;
+    // printf("CURRENT_ID: %d\nID: %d\n", current_id, new_group_id);
     // Alterando o id das componentes conexas para ser o id do primeiro elemento, já que já estão organizados por ordem lexicográfica em cada grupo
-    for (int i = 0; i < UF_get_N(g) - 1; i++)
+    for (int i = 0; i < UF_get_N(graph); i++)
     {
         // Caso seja de outro grupo
-        if (UF_find(g, points[i]->id) != current_id)
+        if (UF_find(graph, points[i]->id) != current_id && UF_find(graph, points[i]->id) != new_group_id)
         {
-            current_id = UF_find(g, points[i]->id);
+            current_id = UF_find(graph, points[i]->id);
             new_group_id = points[i]->id;
         }
-        UF_set_id(points[i]->id, new_group_id, g);
+        printf("Elemento: %s\n", points[i]->name);
+        printf("CURRENT_ID: %d\nNEW_ID: %d\nID: %d\n\n", current_id, new_group_id, points[i]->id);
+        UF_set_id(points[i]->id, new_group_id, graph);
     }
 
     qsort_r(points, nPoints, sizeof(Point *), Point_lexicographical_comparator, graph);
