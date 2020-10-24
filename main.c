@@ -6,7 +6,6 @@
 #include "include/union_find.h"
 #include "include/point.h"
 #include "include/dists.h"
-// #include "include/kruskal.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,27 +33,26 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    printf("\nLendo arquivo de entrada...\n");
+    // printf("\nLendo arquivo de entrada...\n");
     int nLines = count_lines(fpIn);
-    printf("'%s' possui %i linhas.", fileIn, nLines);
+    // printf("'%s' possui %i linhas.", fileIn, nLines);
 
     // Volta para o começo do arquivo
     rewind(fpIn);
     int nDimensions = determine_dimensions(fpIn);
-    printf("\nDimensões: %i\n", nDimensions);
+    // printf("\nDimensões: %i.\n", nDimensions);
 
     char *linesIDs[nLines];
     double pointsVectorizedMatrix[nDimensions * nLines];
 
     rewind(fpIn);
     read_input_file(fpIn, linesIDs, pointsVectorizedMatrix);
-    printf("Fim da leitura do arquivo de entrada.\n");
+    // printf("Fim da leitura do arquivo de entrada.\n");
     fclose(fpIn);
 
     clocksRead = clock() - clocksRead;
-    // Fim da leitura dos dados
-
     double timeTakenRead = ((double)clocksRead) / CLOCKS_PER_SEC;
+    // Fim da leitura dos dados
 
     Point **points_array;
     points_array = Point_array_init(linesIDs, pointsVectorizedMatrix, nLines, nDimensions);
@@ -62,17 +60,17 @@ int main(int argc, char *argv[])
     // Começo do cálculo das distâncias
     clock_t clocksCalcDist = clock();
 
-    printf("\nCalculando distâncias...\n");
+    // printf("\nCalculando distâncias...\n");
     Dist *distArray = Dist_create_array(points_array, nLines, nDimensions);
-    // Fim do cálculo das distâncias
 
     clocksCalcDist = clock() - clocksCalcDist;
     double timeTakenCalcDist = ((double)clocksCalcDist) / CLOCKS_PER_SEC;
+    // Fim do cálculo das distâncias
 
     // Começo da ordenação das distâncias
     clock_t clocksSortDist = clock();
 
-    printf("Ordenando distâncias...\n");
+    // printf("Ordenando distâncias...\n");
     distArray = Dist_sort(distArray, nLines);
     // Fim da ordenação das distâncias
 
@@ -82,7 +80,7 @@ int main(int argc, char *argv[])
     // Começo da obtenção da MST
     clock_t clocksMST = clock();
 
-    printf("\nGerando árvore geradora mínima...\n");
+    // printf("\nGerando árvore geradora mínima...\n");
     UF *MST = generate_MST_kruskal(distArray, nLines, linesIDs, k);
 
     clocksMST = clock() - clocksMST;
@@ -92,7 +90,7 @@ int main(int argc, char *argv[])
     // Começo da identificação dos grupos
     clock_t clocksIDGroups = clock();
 
-    printf("Identificando grupos...\n");
+    // printf("Identificando grupos...\n");
     points_array = Point_sort(points_array, nLines, MST);
 
     points_array = Point_group_sort(points_array, nLines, MST);
@@ -100,8 +98,7 @@ int main(int argc, char *argv[])
     double timeTakenIDGroups = ((double)clocksIDGroups) / CLOCKS_PER_SEC;
     // Fim da identificação dos grupos
 
-    // Ordenar vetor de pontos em ordem alfabética com strcmp e qsort
-
+    // Prints
     // Point_print_array(points_array, nLines, nDimensions);
     // Dist_print_array(distArray, nLines);
     // UF_print(MST, points_array);
@@ -119,7 +116,7 @@ int main(int argc, char *argv[])
     }
 
     // Escreve grupos no arquivo de saída
-    printf("\nEscrevendo grupos em '%s'...\n", fileOut);
+    // printf("\nEscrevendo grupos em '%s'...\n", fileOut);
     write_output_file(fpOut, points_array, MST);
 
     fclose(fpOut);
@@ -128,7 +125,7 @@ int main(int argc, char *argv[])
     double timeTakenWrite = ((double)clocksWrite) / CLOCKS_PER_SEC;
     // Fim da escrita dos dados
 
-    printf("Liberando estruturas da memória...\n");
+    // printf("Liberando estruturas da memória...\n");
     // Libera estruturas da memória
     for (int i = 0; i < nLines; i++)
     {
@@ -138,8 +135,9 @@ int main(int argc, char *argv[])
     free(distArray);
     UF_free(MST);
 
-    printf("\nFim.\n");
+    // printf("\nFim.\n");
 
+    double timeTakenTotal = timeTakenRead + timeTakenCalcDist + timeTakenSortDist + timeTakenIDGroups + timeTakenMST + timeTakenWrite;
     printf("\n======= TEMPOS %s =======\n", fileIn);
     printf("%-27s %lfs\n", "Leitura:", timeTakenRead);
     printf("%-29s %lfs\n", "Cálculo de distâncias:", timeTakenCalcDist);
@@ -147,6 +145,8 @@ int main(int argc, char *argv[])
     printf("%-29s %lfs\n", "Identificação de grupos:", timeTakenIDGroups);
     printf("%-29s %lfs\n", "Obtenção da MST:", timeTakenMST);
     printf("%-27s %lfs\n", "Escrita:", timeTakenWrite);
+    
+    printf("\n%-27s %lfs\n", "TOTAL:", timeTakenTotal);
 
     return EXIT_SUCCESS;
 }

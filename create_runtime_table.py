@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import os
 import re
 import numpy as np
@@ -20,7 +19,7 @@ k = {1: 2, 2: 4, 3: 5, 4: 5, 5: 10}
 
 for i in range(N_ITERATIONS):
     for inputFile in range(1, N_INPUT_FILES + 1):
-        print(f"Testando {inputFile}.txt pela {i + 1} vez")
+        print(f"Testando {inputFile}.txt pela {i + 1}ª vez")
 
         aux = subprocess.run(
             [
@@ -35,7 +34,7 @@ for i in range(N_ITERATIONS):
         y = aux.stdout
 
         floats = re.findall("\d+\.\d+", y)
-        floats = [f"{float(string)} + {string*2}" for string in floats]
+        floats = [float(string) for string in floats]
 
         if i == 0:
             entradas[inputFile - 1] = np.array(floats)
@@ -56,7 +55,7 @@ for inputFile in range(1, N_INPUT_FILES + 1):
     stringsEntrada.append(f"Entrada {inputFile}")
 df.index = stringsEntrada
 
-df.columns = ["Leitura", "Distâncias", "Ordenação", "MST", "Agrupamento", "Escrita"]
+df.columns = ["Leitura", "Distâncias", "Ordenação", "MST", "Agrupamento", "Escrita", "Total"]
 
 print("\\begin{table}[h]", "\centering", sep=("\n"))
 print(df.to_latex())
