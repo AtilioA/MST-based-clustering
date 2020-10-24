@@ -16,6 +16,8 @@ double Point_calc_dist(Point *p1, Point *p2, int nDimensions);
 char *Point_get_name(Point *point);
 // Obtém coordenadas do ponto
 double *Point_get_coordinates(Point *point);
+// Obtém o id/índice do ponto no union-find
+int Point_get_UFID(Point *p);
 
 // Imprime vetor de pontos
 void Point_print_array(Point **points, int size, int nDimensions);
@@ -29,7 +31,5 @@ void Point_free_array(Point **points, int size);
 Point **Point_sort(Point **points, int nPoints, void *graph);
 
 Point **Point_k_sort(Point **points, int nPoints, void *g);
-
-int Point_get_id(Point *p);
 
 #endif

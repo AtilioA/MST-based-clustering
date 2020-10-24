@@ -5,9 +5,13 @@
 
 struct union_find
 {
+    // Quantidade de nós
     int N;
+    // Vetor de ids
     int *ids;
+    // Vetor de pesos, para balancear
     int *sizes;
+    // Vetor de nomes de pontos dos nós
     char **names;
 };
 
@@ -68,7 +72,7 @@ void UF_print(UF *graph, Point **points)
 {
     for (int i = 0; i < graph->N; i++)
     {
-        printf("Ponto: %s Raiz: %s\n", Point_get_name(points[i]), UF_get_name_by_id(graph, UF_find(graph, Point_get_id(points[i]))));
+        printf("Ponto: %s Raiz: %s\n", Point_get_name(points[i]), UF_get_name_by_id(graph, UF_find(graph, Point_get_UFID(points[i]))));
     }
 }
 

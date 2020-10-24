@@ -7,8 +7,11 @@
 
 struct dist
 {
+    // Índice de p no vetor de pontos
     int pIndex;
+    // Índice de q no vetor de pontos
     int qIndex;
+    // Valor da distância entre p e q
     double value;
 };
 

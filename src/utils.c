@@ -91,9 +91,9 @@ void write_output_file(FILE *fpOut, Point **points, UF *MST)
     // Escreve todos os pontos exceto o último
     for (i = 0; i < UF_get_N(MST) - 1; i++)
     {
-        char *currentRootName = UF_get_name_by_id(MST, UF_find(MST, Point_get_id(points[i])));
-        char *nextRootName = UF_get_name_by_id(MST, UF_find(MST, Point_get_id(points[i + 1])));
-        currentPointName = UF_get_name_by_id(MST, Point_get_id(points[i]));
+        char *currentRootName = UF_get_name_by_id(MST, UF_find(MST, Point_get_UFID(points[i])));
+        char *nextRootName = UF_get_name_by_id(MST, UF_find(MST, Point_get_UFID(points[i + 1])));
+        currentPointName = UF_get_name_by_id(MST, Point_get_UFID(points[i]));
 
         // Caso seja do mesmo grupo
         if (strcmp(currentRootName, nextRootName) == 0)
@@ -108,7 +108,7 @@ void write_output_file(FILE *fpOut, Point **points, UF *MST)
     }
 
     // Escreve último ponto
-    currentPointName = UF_get_name_by_id(MST, Point_get_id(points[i]));
+    currentPointName = UF_get_name_by_id(MST, Point_get_UFID(points[i]));
     fprintf(fpOut, "%s\n", currentPointName);
 }
 

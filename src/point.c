@@ -7,9 +7,12 @@
 
 struct point
 {
+    // String identificadora do ponto
     char *name;
+    // Coordenadas do ponto
     double *coordinates;
-    int id;
+    // Índice do ponto no vetor de ids do union-find
+    int UFID;
 };
 
 char *Point_get_name(Point *point)
@@ -17,9 +20,9 @@ char *Point_get_name(Point *point)
     return point->name;
 }
 
-int Point_get_id(Point *p)
+int Point_get_UFID(Point *p)
 {
-    return p->id;
+    return p->UFID;
 }
 
 double *Point_get_coordinates(Point *point)
@@ -27,14 +30,14 @@ double *Point_get_coordinates(Point *point)
     return point->coordinates;
 }
 
-Point *Point_init(char *name, double *coordinates, int nDimensions, int id)
+Point *Point_init(char *name, double *coordinates, int nDimensions, int UFID)
 {
     Point *point = malloc(sizeof(Point));
 
     point->name = malloc((strlen(name) + 1) * sizeof(char));
     strcpy(point->name, name);
     point->coordinates = malloc(nDimensions * sizeof(double));
-    point->id = id;
+    point->UFID = UFID;
 
     for (int i = 0; i < nDimensions; i++)
     {
@@ -81,11 +84,11 @@ int Point_lexicographical_comparator(const void *a, const void *b, void *g)
     Point *q = *((Point **)b);
     UF *graph = (UF *)g;
 
-    char *pRootName = UF_get_name_by_id(graph, UF_find(graph, p->id));
-    char *qRootName = UF_get_name_by_id(graph, UF_find(graph, q->id));
+    char *pRootName = UF_get_name_by_id(graph, UF_find(graph, p->UFID));
+    char *qRootName = UF_get_name_by_id(graph, UF_find(graph, q->UFID));
 
     int comparePointsSameGroup = strcmp(pRootName, qRootName);
-    // printf("%s e %s: \nids: %d e %d\nresultado:%d\n\n", pRootName, qRootName, UF_find(graph, p->id), UF_find(graph, q->id), comparePointsSameGroup);
+    // printf("%s e %s: \nids: %d e %d\nresultado:%d\n\n", pRootName, qRootName, UF_find(graph, p->UFID), UF_find(graph, q->UFID), comparePointsSameGroup);
     if (comparePointsSameGroup != 0)
     {
         return comparePointsSameGroup;
@@ -105,27 +108,27 @@ Point **Point_sort(Point **points, int nPoints, void *g)
     return points;
 }
 
-Point **Point_k_sort(Point **points, int nPoints, void *g)
+Point **Point_group_sort(Point **points, int nPoints, void *g)
 {
     UF *graph = (UF *)g;
-    int current_id = UF_find(g, points[0]->id);
-    int new_group_id = points[0]->id;
+    int current_id = UF_find(g, points[0]->UFID);
+    int new_group_id = points[0]->UFID;
     // printf("CURRENT_ID: %d\nID: %d\n", current_id, new_group_id);
     // Alterando o id das componentes conexas para ser o id do primeiro elemento, já que já estão organizados por ordem lexicográfica em cada grupo
     for (int i = 0; i < UF_get_N(graph); i++)
     {
         // Caso seja de outro grupo
-        if (UF_find(graph, points[i]->id) != current_id && UF_find(graph, points[i]->id) != new_group_id)
+        if (UF_find(graph, points[i]->UFID) != current_id && UF_find(graph, points[i]->UFID) != new_group_id)
         {
-            current_id = UF_find(graph, points[i]->id);
-            new_group_id = points[i]->id;
+            current_id = UF_find(graph, points[i]->UFID);
+            new_group_id = points[i]->UFID;
         }
         // printf("Elemento: %s\n", points[i]->name);
-        // printf("CURRENT_ID: %d\nNEW_ID: %d\nID: %d\n\n", current_id, new_group_id, points[i]->id);
-        UF_set_id(points[i]->id, new_group_id, graph);
+        // printf("CURRENT_ID: %d\nNEW_ID: %d\nID: %d\n\n", current_id, new_group_id, points[i]->UFID);
+        UF_set_id(points[i]->UFID, new_group_id, graph);
     }
 
-    qsort_r(points, nPoints, sizeof(Point *), Point_lexicographical_comparator, graph);
+    // qsort_r(points, nPoints, sizeof(Point *), Point_lexicographical_comparator, graph);
     return points;
 }
 
@@ -133,7 +136,7 @@ void Point_print_array(Point **points, int size, int nDimensions)
 {
     for (int i = 0; i < size; i++)
     {
-        printf("Ponto %d\n", points[i]->id);
+        printf("Ponto %d\n", points[i]->UFID);
         printf("Nome: %s\n", points[i]->name);
         for (int j = 0; j < nDimensions; j++)
         {

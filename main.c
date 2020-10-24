@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
     printf("Identificando grupos...\n");
     points_array = Point_sort(points_array, nLines, MST);
 
-    points_array = Point_k_sort(points_array, nLines, MST);
+    points_array = Point_group_sort(points_array, nLines, MST);
     clocksIDGroups = clock() - clocksIDGroups;
     double timeTakenIDGroups = ((double)clocksIDGroups) / CLOCKS_PER_SEC;
     // Fim da identificação dos grupos
