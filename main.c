@@ -145,8 +145,8 @@ int main(int argc, char *argv[])
     printf("%-29s %lfs\n", "Identificação de grupos:", timeTakenIDGroups);
     printf("%-29s %lfs\n", "Obtenção da MST:", timeTakenMST);
     printf("%-27s %lfs\n", "Escrita:", timeTakenWrite);
-    
-    printf("\n%-27s %lfs\n", "TOTAL:", timeTakenTotal);
+
+    printf("\n%-27s %lfs\n\n", "TOTAL:", timeTakenTotal);
 
     return EXIT_SUCCESS;
 }
