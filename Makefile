@@ -1,7 +1,7 @@
 OBJ      := obj
 SRC      := src
 INC      := include
-CFLAGS   := -lm -g -O0 -Wall -pedantic -Wextra -Wwrite-strings # -Werror
+CFLAGS   := -lm -g -O0 -Wall -pedantic -Wextra -Wwrite-strings
 EXE 	 := trab1
 PROJETO  := main
 
