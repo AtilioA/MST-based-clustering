@@ -29,11 +29,12 @@ int UF_get_N(UF *graph);
 int *UF_get_ids(UF *graph);
 // Obtém vetor de tamanhos das árvores nas quais os nós estão contidos
 int *UF_get_sizes(UF *graph);
-
+// Obtém o vetor de nomes dos pontos dos nós do union-find
 char **UF_get_names(UF *graph);
-
+// Obtém o nome de um ponto de um nó pelo seu id do union-find
 char *UF_get_name_by_id(UF *graph, int id);
 
+// Atribui o valor j ao nó i do union-find
 void UF_set_id(int i, int j, UF *graph);
 
 #endif

@@ -27,9 +27,9 @@ void Point_free(Point *p);
 
 // Libera vetor de pontos da memória
 void Point_free_array(Point **points, int size);
-
+// Ordena vetor de pontos por ordem alfabética das raízes e dos próprios pontos
 Point **Point_sort(Point **points, int nPoints, void *graph);
-
-Point **Point_k_sort(Point **points, int nPoints, void *g);
+// Ordena vetor de pontos por ordem alfabética
+Point **Point_group_sort(Point **points, int nPoints, void *g);
 
 #endif

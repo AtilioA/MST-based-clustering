@@ -26,26 +26,26 @@ $(OBJ)/$(PROJETO).o: $(PROJETO).c
 
 # Roda o programa com entrada 1
 run_1: clean main
-	./$(EXE) entradas/1.txt 2 saida.txt
+	./$(EXE) entradas/1.txt 2 saida_1.txt
 
 # Roda o programa com entrada 2
 run_2: clean main
-	./$(EXE) entradas/2.txt 4 saida.txt
+	./$(EXE) entradas/2.txt 4 saida_2.txt
 
 
 # Roda o programa com entrada 3
 run_3: clean main
-	./$(EXE) entradas/3.txt 5 saida.txt
+	./$(EXE) entradas/3.txt 5 saida_3.txt
 
 
 # Roda o programa com entrada 4
 run_4: clean main
-	./$(EXE) entradas/4.txt 5 saida.txt
+	./$(EXE) entradas/4.txt 5 saida_4.txt
 
 
 # Roda o programa com entrada 5
 run_5: clean main
-	./$(EXE) entradas/5.txt 10 saida.txt
+	./$(EXE) entradas/5.txt 10 saida_5.txt
 
 # Roda o programa com valgrind e flags úteis (entrada 3)
 val: main

@@ -23,6 +23,7 @@ int Dist_get_qIndex(Dist *dist);
 // Obtém o valor da distância entre P e Q
 double Dist_get_value(Dist *dist);
 
+// Calcula a árvore geradora mínima
 UF *generate_MST_kruskal(Dist *distArray, int nPoints, char **names, int nGroups);
 
 #endif

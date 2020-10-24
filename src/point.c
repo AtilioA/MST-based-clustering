@@ -111,24 +111,28 @@ Point **Point_sort(Point **points, int nPoints, void *g)
 Point **Point_group_sort(Point **points, int nPoints, void *g)
 {
     UF *graph = (UF *)g;
-    int current_id = UF_find(g, points[0]->UFID);
-    int new_group_id = points[0]->UFID;
-    // printf("CURRENT_ID: %d\nID: %d\n", current_id, new_group_id);
-    // Alterando o id das componentes conexas para ser o id do primeiro elemento, já que já estão organizados por ordem lexicográfica em cada grupo
+    int previousID = UF_find(g, points[0]->UFID);
+    int newGroupID = points[0]->UFID;
+    // printf("previousID: %d\nID: %d\n", previousID, newGroupID);
+
+    // Altera o id das componentes conexas para ser o id do primeiro elemento
+    // uma vez que já estão organizados por ordem lexicográfica em cada grupo
     for (int i = 0; i < UF_get_N(graph); i++)
     {
         // Caso seja de outro grupo
-        if (UF_find(graph, points[i]->UFID) != current_id && UF_find(graph, points[i]->UFID) != new_group_id)
+        int currentID = UF_find(graph, points[i]->UFID);
+        if (currentID != previousID && currentID != newGroupID)
         {
-            current_id = UF_find(graph, points[i]->UFID);
-            new_group_id = points[i]->UFID;
+            previousID = currentID;
+            newGroupID = points[i]->UFID;
         }
+
         // printf("Elemento: %s\n", points[i]->name);
-        // printf("CURRENT_ID: %d\nNEW_ID: %d\nID: %d\n\n", current_id, new_group_id, points[i]->UFID);
-        UF_set_id(points[i]->UFID, new_group_id, graph);
+        // printf("previousID: %d\nNEW_ID: %d\nID: %d\n\n", previousID, newGroupID, points[i]->UFID);
+        UF_set_id(points[i]->UFID, newGroupID, graph);
     }
 
-    // qsort_r(points, nPoints, sizeof(Point *), Point_lexicographical_comparator, graph);
+    qsort_r(points, nPoints, sizeof(Point *), Point_lexicographical_comparator, graph);
     return points;
 }
 
